@@ -114,4 +114,4 @@ Este projeto está sob a licença MIT. Sinta-se livre para utilizá-lo e contrib
 
 ---
 
-:computer: Desenvolvido com :blue_heart: por [João Figueiredo, Michael, Caue, João Vitor](https://github.com/ProgramadoresSemPatria/hackaton-team2)
+:computer: Desenvolvido com :blue_heart: por [João Figueiredo](https://github.com/joaogbrieldev/interflow)
