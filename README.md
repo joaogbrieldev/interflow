@@ -4,8 +4,6 @@ Bem-vindo ao **InterviewFlow**, uma plataforma completa para desenvolvedores ger
 
 ---
 
-## Feature working now: refactor
-
 ## :rocket: Tecnologias Utilizadas
 
 ### Backend:
