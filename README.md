@@ -34,7 +34,7 @@ Bem-vindo ao **InterviewFlow**, uma plataforma completa para desenvolvedores ger
 
 ---
 
-## :tools: Como Rodar o Projeto
+## ⚙️ Como Rodar o Projeto
 
 ### :wrench: Pré-requisitos
 
