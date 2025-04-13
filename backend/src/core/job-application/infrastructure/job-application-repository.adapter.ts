@@ -33,12 +33,6 @@ export class JobApplicationRepositoryAdapter
       salary: normalizedPersistencyObject.salary,
       isEquity: normalizedPersistencyObject.is_equity,
       isInternational: normalizedPersistencyObject.is_international,
-      user_id: normalizedPersistencyObject.user_id,
-      company_name: normalizedPersistencyObject.company_name,
-      companyFeedback: normalizedPersistencyObject.companyFeedback,
-      userFellings: normalizedPersistencyObject.userFellings,
-      interviewDate: normalizedPersistencyObject.interviewDate,
-      directContact: normalizedPersistencyObject.directContact,
     });
     return jobApplication;
   }
@@ -54,7 +48,7 @@ export class JobApplicationRepositoryAdapter
 
   async getJobApplicationsByUser(userId: string): Promise<JobApplication[]> {
     const jobApplicationsModel = await this._jobApplicationRepository.find({
-      where: { user_id: userId },
+      where: { user: { id: userId } },
     });
 
     const jobApplications = jobApplicationsModel.map((item) =>
@@ -81,12 +75,7 @@ export class JobApplicationRepositoryAdapter
     jobApplicationModel.salary = jobApplication.salary;
     jobApplicationModel.is_equity = jobApplication.isEquity;
     jobApplicationModel.is_international = jobApplication.isInternational;
-    jobApplicationModel.user_id = jobApplication.user_id;
-    jobApplicationModel.company_name = jobApplication.company_name;
-    jobApplicationModel.companyFeedback = jobApplication.companyFeedback;
-    jobApplicationModel.directContact = jobApplication.directContact;
-    jobApplicationModel.interviewDate = jobApplication.interviewDate;
-    jobApplicationModel.userFellings = jobApplication.userFellings;
+    jobApplicationModel.user = jobApplication.user;
 
     const updatedJobApplicationModel =
       await this._jobApplicationRepository.save(jobApplicationModel);

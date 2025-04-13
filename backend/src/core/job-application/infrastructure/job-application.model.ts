@@ -20,21 +20,6 @@ export class JobApplicationModel extends BaseModel {
   @Column({ type: 'varchar', nullable: false })
   link: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  company_name: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  directContact: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  interviewDate: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  companyFeedback: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  userFellings: string;
-
   @Column({
     type: 'varchar',
   })
@@ -48,9 +33,6 @@ export class JobApplicationModel extends BaseModel {
 
   @Column({ type: 'boolean', default: false })
   is_international: boolean;
-
-  @Column({ type: 'uuid', nullable: false })
-  user_id: string;
 
   @ManyToOne(() => UserModel)
   @JoinColumn({ name: 'user_id' })
