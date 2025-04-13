@@ -68,12 +68,7 @@ export class JobApplicationFakerBuilder<
             salary: this._callFactory(this._salary),
             isEquity: this._callFactory(this._isEquity),
             isInternational: this._callFactory(this._isInternational),
-            user_id: 'aaa-aaaa-aaaa-aaaa',
-            company_name: 'aaaaa',
-            userFellings: 'aaa',
-            companyFeedback: 'aaa',
-            directContact: 'áaa',
-            interviewDate: 'áaaa',
+            user: null,
           }),
       );
 
