@@ -7,7 +7,7 @@ import { Contact } from './contact.vo';
 export class CompanyId extends Uuid {}
 
 export type CompanyConstructorProps = {
-  company_id: CompanyId;
+  company_id?: CompanyId;
   email: string;
   name: string;
   phone: Phone;
@@ -17,7 +17,6 @@ export type CompanyConstructorProps = {
 };
 
 export type CompanyCreateCommand = {
-  company_id: CompanyId;
   email: string;
   name: string;
   phone: Phone;
