@@ -1,3 +1,4 @@
+import { User } from '@core/user/domain/user.aggregate';
 import { EntityBase } from 'src/libs/shared/src/data-layer/entities/entity-base';
 import { Uuid } from 'src/libs/shared/src/domain/models/value-objects/uuid.vo';
 import { JobApplicationFakerBuilder } from './job-application-fake.builder';
@@ -10,12 +11,6 @@ export type JobApplicationConstructorProps = {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
-  user_id: string;
-  company_name: string;
-  directContact: string;
-  interviewDate: string;
-  companyFeedback: string;
-  userFellings: string;
 };
 
 export type JobApplicationCreateCommand = {
@@ -25,12 +20,6 @@ export type JobApplicationCreateCommand = {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
-  user_id: string;
-  company_name: string;
-  interviewDate: string;
-  directContact: string;
-  companyFeedback: string;
-  userFellings: string;
 };
 
 export class JobApplicationId extends Uuid {}
@@ -43,12 +32,7 @@ export class JobApplication extends EntityBase {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
-  user_id: string;
-  company_name: string;
-  directContact: string;
-  interviewDate: string;
-  companyFeedback: string;
-  userFellings: string;
+  user: User;
 
   constructor(props: JobApplicationConstructorProps) {
     super();
@@ -60,12 +44,6 @@ export class JobApplication extends EntityBase {
     this.salary = props.salary;
     this.isEquity = props.isEquity;
     this.isInternational = props.isInternational;
-    this.user_id = props.user_id;
-    this.company_name = props.company_name;
-    this.directContact = props.directContact;
-    this.interviewDate = props.interviewDate;
-    this.userFellings = props.userFellings;
-    this.companyFeedback = props.companyFeedback;
   }
 
   static create(props: JobApplicationCreateCommand) {
@@ -95,21 +73,6 @@ export class JobApplication extends EntityBase {
     return this;
   }
 
-  updateCompanyName(company_name: string): JobApplication {
-    this.company_name = company_name;
-    return this;
-  }
-
-  updateUCompanyFeedback(companyFeedback: string): JobApplication {
-    this.companyFeedback = companyFeedback;
-    return this;
-  }
-
-  updateUserFellings(userFellings: string): JobApplication {
-    this.userFellings = userFellings;
-    return this;
-  }
-
   updateInternational(isInternational: boolean): JobApplication {
     this.isInternational = isInternational;
     return this;
@@ -136,12 +99,6 @@ export class JobApplication extends EntityBase {
       status: this.status,
       salary: this.salary,
       isEquity: this.isEquity,
-      isInternational: this.isInternational,
-      company_name: this.company_name,
-      directContact: this.directContact,
-      interviewDate: this.interviewDate,
-      userFellings: this.userFellings,
-      companyFeedback: this.companyFeedback,
     };
   }
 }
