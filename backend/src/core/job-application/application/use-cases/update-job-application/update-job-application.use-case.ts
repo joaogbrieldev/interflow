@@ -18,32 +18,12 @@ export class UpdateJobApplicationUseCase
   ) {}
 
   async execute(input: IUpdateJobApplicationsInput): Promise<JobApplication> {
-    const {
-      jobApplicationsId,
-      name,
-      link,
-      status,
-      salary,
-      isEquity,
-      isInternational,
-      companyName,
-      userFellings,
-      companyFeedback,
-    } = input;
+    const { jobApplicationsId, name, link, status } = input;
     await this._validateJobApplicationId(jobApplicationsId);
     const jobApplication: JobApplication =
       await this._jobApplicationRepository.get(jobApplicationsId);
 
-    jobApplication
-      .defineName(name)
-      .defineLink(link)
-      .updateStatus(status)
-      .updateSalary(salary)
-      .updateCompanyName(companyName)
-      .updateUserFellings(userFellings)
-      .updateUCompanyFeedback(companyFeedback)
-      .updateInternational(isInternational)
-      .updateEquity(isEquity);
+    jobApplication.defineName(name).defineLink(link).updateStatus(status);
 
     await this._jobApplicationRepository.updateJobApplication(
       jobApplicationsId,
