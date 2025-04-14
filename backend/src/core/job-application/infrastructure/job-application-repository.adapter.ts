@@ -1,3 +1,4 @@
+import { User } from '@core/user/domain/user.aggregate';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseRepositoryPostgresAdapter } from 'src/libs/shared/src/infrastructure/db/postgres/base-repository.adapter';
@@ -25,6 +26,10 @@ export class JobApplicationRepositoryAdapter
   mapToDomain(
     normalizedPersistencyObject: JobApplicationModel,
   ): JobApplication {
+    const user = new User({
+      name: normalizedPersistencyObject.user.name,
+      email: normalizedPersistencyObject.user.email,
+    });
     const jobApplication: JobApplication = new JobApplication({
       job_application_id: new JobApplicationId(normalizedPersistencyObject.id),
       name: normalizedPersistencyObject.name,
@@ -33,30 +38,26 @@ export class JobApplicationRepositoryAdapter
       salary: normalizedPersistencyObject.salary,
       isEquity: normalizedPersistencyObject.is_equity,
       isInternational: normalizedPersistencyObject.is_international,
+      user: user,
     });
+
     return jobApplication;
   }
-  async createJobApplication(
-    JobApplication: JobApplication,
-  ): Promise<JobApplication> {
-    const JobApplicationEntity =
-      this._jobApplicationRepository.create(JobApplication);
-    const JobApplicationCreated =
-      await this._jobApplicationRepository.save(JobApplicationEntity);
-    return this.mapToDomain(JobApplicationCreated);
+
+  mapToModel(normalizedPersistencyObject: JobApplication): JobApplicationModel {
+    const jobApplication: JobApplicationModel = new JobApplicationModel();
+    jobApplication.id = normalizedPersistencyObject.job_application_id.id;
+    jobApplication.name = normalizedPersistencyObject.name;
+    jobApplication.link = normalizedPersistencyObject.link;
+    jobApplication.status = normalizedPersistencyObject.status;
+    jobApplication.salary = normalizedPersistencyObject.salary;
+    jobApplication.is_equity = normalizedPersistencyObject.isEquity;
+    jobApplication.is_international =
+      normalizedPersistencyObject.isInternational;
+
+    return jobApplication;
   }
 
-  async getJobApplicationsByUser(userId: string): Promise<JobApplication[]> {
-    const jobApplicationsModel = await this._jobApplicationRepository.find({
-      where: { user: { id: userId } },
-    });
-
-    const jobApplications = jobApplicationsModel.map((item) =>
-      this.mapToDomain(item),
-    );
-
-    return jobApplications;
-  }
   async updateJobApplication(
     jobApplicationId: any,
     jobApplication: JobApplication,
@@ -75,7 +76,6 @@ export class JobApplicationRepositoryAdapter
     jobApplicationModel.salary = jobApplication.salary;
     jobApplicationModel.is_equity = jobApplication.isEquity;
     jobApplicationModel.is_international = jobApplication.isInternational;
-    jobApplicationModel.user = jobApplication.user;
 
     const updatedJobApplicationModel =
       await this._jobApplicationRepository.save(jobApplicationModel);

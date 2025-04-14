@@ -1,9 +1,15 @@
 import {
-  IUpdateJobApplicationsInput,
   IUpdateJobApplicationsOutput,
   IUpdateJobApplicationsUseCase,
 } from '@core/job-application/domain/contracts/use-cases/update-job-application';
-import { Body, Controller, HttpCode, HttpStatus, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+} from '@nestjs/common';
 import { IController } from 'src/libs/shared/src/domain/contracts/presentation/controller';
 import { IHttpResponse } from 'src/libs/shared/src/domain/contracts/presentation/http';
 import {
@@ -37,20 +43,19 @@ export class UpdateJobApplicationController
     private readonly _updateJobApplicationUseCase: IUpdateJobApplicationsUseCase,
   ) {}
 
-  @Patch('/')
+  @Patch('/:jobapplicationid')
   @HttpCode(HttpStatus.OK)
   @HttpCode(HttpStatus.BAD_REQUEST)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
     @Body() body: UpdateJobApplicationInputDto,
+    @Param('jobapplicationid') jobApplicationsId: string,
   ): Promise<IHttpResponse<IUpdateJobApplicationOutputPresentation>> {
     try {
-      const input: IUpdateJobApplicationsInput = {
-        ...body,
-      };
       const result: IUpdateJobApplicationOutputPresentation =
         await this._updateJobApplicationUseCase.execute({
-          ...input,
+          ...body,
+          jobApplicationsId,
         });
 
       return ok(result);

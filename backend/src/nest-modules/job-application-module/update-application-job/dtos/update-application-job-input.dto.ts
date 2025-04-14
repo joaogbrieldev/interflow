@@ -1,5 +1,4 @@
 export class UpdateJobApplicationInputDto {
-  jobApplicationsId: string;
   name?: string;
   link?: string;
   status?: string;

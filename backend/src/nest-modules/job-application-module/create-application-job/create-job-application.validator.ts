@@ -16,7 +16,6 @@ export class CreateJobApplicationValidator
       'name',
       'link',
       'status',
-      'status',
       'salary',
       'isEquity',
       'isInternational',

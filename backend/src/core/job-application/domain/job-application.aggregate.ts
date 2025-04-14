@@ -11,6 +11,7 @@ export type JobApplicationConstructorProps = {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
+  user: User;
 };
 
 export type JobApplicationCreateCommand = {
@@ -20,6 +21,7 @@ export type JobApplicationCreateCommand = {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
+  user: User;
 };
 
 export class JobApplicationId extends Uuid {}
@@ -44,6 +46,7 @@ export class JobApplication extends EntityBase {
     this.salary = props.salary;
     this.isEquity = props.isEquity;
     this.isInternational = props.isInternational;
+    this.user = props.user;
   }
 
   static create(props: JobApplicationCreateCommand) {
