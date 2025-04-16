@@ -9,11 +9,6 @@ export interface IUpdateJobApplicationsInput {
   salary?: number;
   isEquity?: boolean;
   isInternational?: boolean;
-  companyName?: string;
-  directContact?: string;
-  interviewDate?: string;
-  userFellings?: string;
-  companyFeedback?: string;
 }
 
 export type IUpdateJobApplicationsOutput = JobApplication;

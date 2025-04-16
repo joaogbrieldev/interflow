@@ -5,6 +5,7 @@ import {
   ICreateJobApplicationUseCase,
 } from '@core/job-application/domain/contracts/use-cases/create-job-application';
 import { JobApplication } from '@core/job-application/domain/job-application.aggregate';
+import { IUserRepository } from '@core/user/domain/contracts/repository/user.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -13,6 +14,7 @@ export class CreateJobApplicationUseCase
 {
   constructor(
     private readonly jobApplicationRepository: IJobApplicationRepository,
+    private readonly userRepository: IUserRepository,
   ) {}
 
   async execute({
@@ -22,7 +24,12 @@ export class CreateJobApplicationUseCase
     salary,
     isEquity,
     isInternational,
+    userId,
   }: ICreateJobApplicationInput): Promise<ICreateJobApplicationOutput> {
+    const user = await this.userRepository.getOne({
+      id: userId,
+    });
+
     const entity = JobApplication.create({
       name,
       link,
@@ -30,10 +37,11 @@ export class CreateJobApplicationUseCase
       salary,
       isEquity,
       isInternational,
+      user,
     });
 
     const jobApplicationCreated =
-      await this.jobApplicationRepository.createJobApplication(entity);
+      await this.jobApplicationRepository.create(entity);
 
     return {
       jobApplicationId: jobApplicationCreated.job_application_id.id,

@@ -7,7 +7,7 @@ export type ICreateJobApplicationInput = {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
-  companyName: string;
+  userId: string;
 };
 
 export type ICreateJobApplicationOutput = {

@@ -8,12 +8,7 @@ export type CreateJobApplicationInputConstructorProps = {
   isEquity: boolean;
   isInternational: boolean;
   JobApplication_id: string;
-  companyName: string;
   userId: string;
-  directContact: string;
-  interviewDate: string;
-  userFeelings: string;
-  companyFeedback: string;
 };
 
 export class CreateJobApplicationInputDto {
@@ -24,12 +19,7 @@ export class CreateJobApplicationInputDto {
   isEquity: boolean;
   isInternational: boolean;
   salary: number;
-  companyName: string;
   userId: string;
-  directContact: string;
-  interviewDate: string;
-  userFeelings: string;
-  companyFeedback: string;
 
   constructor(props: CreateJobApplicationInputConstructorProps) {
     if (!props) return;
@@ -40,12 +30,7 @@ export class CreateJobApplicationInputDto {
     this.isEquity = props.isEquity;
     this.isInternational = props.isInternational;
     this.salary = props.salary;
-    this.companyName = props.companyName;
     this.userId = props.userId;
-    this.directContact = props.directContact;
-    this.interviewDate = props.interviewDate;
-    this.userFeelings = props.userFeelings;
-    this.companyFeedback = props.companyFeedback;
   }
 }
 

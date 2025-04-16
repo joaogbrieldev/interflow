@@ -24,11 +24,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
 
     const entity = User.create({ name, email });
     entity.defineHashedPassword(hashedPassword);
-
-    const userCreated = await this.userRepository.addUserAccountCreated({
-      ...entity,
-      password: hashedPassword,
-    });
+    const userCreated = await this.userRepository.addUserAccountCreated(entity);
 
     return {
       userId: userCreated.user_id.id,

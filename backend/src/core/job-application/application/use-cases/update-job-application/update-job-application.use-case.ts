@@ -21,11 +21,13 @@ export class UpdateJobApplicationUseCase
     const { jobApplicationsId, name, link, status } = input;
     await this._validateJobApplicationId(jobApplicationsId);
     const jobApplication: JobApplication =
-      await this._jobApplicationRepository.get(jobApplicationsId);
+      await this._jobApplicationRepository.get(jobApplicationsId, null, [
+        'user',
+      ]);
 
     jobApplication.defineName(name).defineLink(link).updateStatus(status);
 
-    await this._jobApplicationRepository.updateJobApplication(
+    await this._jobApplicationRepository.update(
       jobApplicationsId,
       jobApplication,
     );

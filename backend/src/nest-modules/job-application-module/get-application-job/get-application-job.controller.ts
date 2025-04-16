@@ -7,7 +7,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Query,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -25,7 +25,6 @@ import {
   internalServerError,
   ok,
 } from 'src/libs/shared/src/presentation/helper/http';
-import { GetJobApplicationsInputDto } from './dtos/get-application-job-input.dto';
 import { GetJobApplicationsOutputDto } from './dtos/get-application-job-output.dto';
 import { GetJobApplicationDataMapper } from './get-application-job.mapper';
 
@@ -38,22 +37,21 @@ export type GetJobApplicationOutput =
 
 @Controller('job-applications')
 export class GetJobApplicationController
-  implements
-    IController<GetJobApplicationsInputDto, GetJobApplicationsOutputDto>
+  implements IController<string, GetJobApplicationsOutputDto>
 {
   constructor(
     private readonly _getJobApplicationUseCase: IGetJobApplicationsUseCase,
     private readonly _getJobApplicationMapper: GetJobApplicationDataMapper,
   ) {}
 
-  @Get('/')
+  @Get('/:userId')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @HttpCode(HttpStatus.BAD_REQUEST)
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
-    @Query() { userId }: GetJobApplicationsInputDto,
+    @Param('userId') userId: string,
   ): Promise<IHttpResponse<GetJobApplicationOutput>> {
     try {
       const JobApplication: IGetJobApplicationsOutput =
