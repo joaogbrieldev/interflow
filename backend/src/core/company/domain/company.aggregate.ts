@@ -10,22 +10,20 @@ export type CompanyConstructorProps = {
   company_id?: CompanyId;
   email: string;
   name: string;
-  phone: Phone;
+  phone: string;
   contact: Contact[];
-  status: CompanyStatus;
   company_website: string;
 };
 
 export type CompanyCreateCommand = {
   email: string;
   name: string;
-  phone: Phone;
+  phone: string;
   contact: Contact[];
-  status: CompanyStatus;
   company_website: string;
 };
 
-export enum CompanyStatus {
+export enum CompanyStatus { // @to do - move for interview entity
   SENT = 'sent',
   interview = 'interview',
   TECHNICAL_TEST = 'technical_test',
@@ -39,7 +37,6 @@ export class CompanyAggregate extends EntityBase {
   name: string;
   phone: Phone;
   contact: Contact[];
-  status: CompanyStatus;
   company_website: string;
 
   constructor(props: CompanyConstructorProps) {
@@ -47,9 +44,8 @@ export class CompanyAggregate extends EntityBase {
     this.company_id = props.company_id ?? new CompanyId();
     this.email = new Email(props.email);
     this.name = props.name;
-    this.phone = props.phone;
+    this.phone = new Phone(props.phone);
     this.contact = props.contact;
-    this.status = props.status;
     this.company_website = props.company_website;
   }
 

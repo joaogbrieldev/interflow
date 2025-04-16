@@ -14,7 +14,6 @@ export class CreateCompanyUseCase implements ICreateCompanyUseCase {
       name: input.name,
       phone: input.phone,
       contact: input.contact,
-      status: input.status,
       company_website: input.company_website,
     });
     await this.companyRepository.create(company);
