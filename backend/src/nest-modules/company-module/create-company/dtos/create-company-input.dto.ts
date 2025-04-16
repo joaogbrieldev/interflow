@@ -1,4 +1,3 @@
-import { CompanyStatus } from '@core/company/domain/company.aggregate';
 import { Contact } from '@core/company/domain/contact.vo';
 import { validateSync } from 'class-validator';
 import { Phone } from 'src/libs/shared/src/domain/models/value-objects/phone';
@@ -8,7 +7,6 @@ export type CreateCompanyInputConstructorProps = {
   name: string;
   phone: Phone;
   contact: Contact[];
-  status: CompanyStatus;
   company_website: string;
 };
 
@@ -17,7 +15,6 @@ export class CreateCompanyInputDto {
   name: string;
   phone: Phone;
   contact: Contact[];
-  status: CompanyStatus;
   company_website: string;
 
   constructor(props: CreateCompanyInputConstructorProps) {
@@ -26,7 +23,6 @@ export class CreateCompanyInputDto {
     this.name = props.name;
     this.phone = props.phone;
     this.contact = props.contact;
-    this.status = props.status;
     this.company_website = props.company_website;
   }
 }
