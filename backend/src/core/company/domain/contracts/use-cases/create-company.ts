@@ -12,10 +12,12 @@ export type ICreateCompanyInput = {
   company_website: string;
 };
 
-export type ICreateCompanyOutput = void;
+export type ICreateCompanyOutput = {
+  companyId: string;
+};
 
 export abstract class ICreateCompanyUseCase
   implements IUseCase<ICreateCompanyInput, ICreateCompanyOutput>
 {
-  abstract execute(input: ICreateCompanyInput): Promise<void>;
+  abstract execute(input: ICreateCompanyInput): Promise<ICreateCompanyOutput>;
 }
