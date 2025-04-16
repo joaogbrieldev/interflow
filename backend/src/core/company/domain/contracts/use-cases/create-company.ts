@@ -1,14 +1,11 @@
 import { IUseCase } from 'src/libs/shared/src/domain/contracts/application/use-case';
-import { Phone } from 'src/libs/shared/src/domain/models/value-objects/phone';
-import { CompanyStatus } from '../../company.aggregate';
 import { Contact } from '../../contact.vo';
 
 export type ICreateCompanyInput = {
   email: string;
   name: string;
-  phone: Phone;
+  phone: string;
   contact: Contact[];
-  status: CompanyStatus;
   company_website: string;
 };
 
