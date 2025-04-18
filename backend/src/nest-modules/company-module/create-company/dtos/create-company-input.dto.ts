@@ -1,11 +1,10 @@
 import { Contact } from '@core/company/domain/contact.vo';
 import { validateSync } from 'class-validator';
-import { Phone } from 'src/libs/shared/src/domain/models/value-objects/phone';
 
 export type CreateCompanyInputConstructorProps = {
   email: string;
   name: string;
-  phone: Phone;
+  phone: string;
   contact: Contact[];
   company_website: string;
 };
@@ -13,7 +12,7 @@ export type CreateCompanyInputConstructorProps = {
 export class CreateCompanyInputDto {
   email: string;
   name: string;
-  phone: Phone;
+  phone: string;
   contact: Contact[];
   company_website: string;
 

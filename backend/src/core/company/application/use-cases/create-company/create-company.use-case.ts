@@ -5,7 +5,9 @@ import {
   ICreateCompanyOutput,
   ICreateCompanyUseCase,
 } from '@core/company/domain/contracts/use-cases/create-company';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CreateCompanyUseCase implements ICreateCompanyUseCase {
   constructor(private readonly companyRepository: ICompanyRepository) {}
   async execute(input: ICreateCompanyInput): Promise<ICreateCompanyOutput> {

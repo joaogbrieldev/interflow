@@ -1,10 +1,9 @@
 import { User } from '@core/user/domain/user.aggregate';
 import { EntityBase } from 'src/libs/shared/src/data-layer/entities/entity-base';
-import { Uuid } from 'src/libs/shared/src/domain/models/value-objects/uuid.vo';
 import { JobApplicationFakerBuilder } from './job-application-fake.builder';
 
 export type JobApplicationConstructorProps = {
-  job_application_id?: JobApplicationId;
+  id?: string;
   name: string;
   link: string;
   status: string;
@@ -24,10 +23,7 @@ export type JobApplicationCreateCommand = {
   user: User;
 };
 
-export class JobApplicationId extends Uuid {}
-
 export class JobApplication extends EntityBase {
-  job_application_id: JobApplicationId;
   name: string;
   link: string;
   status: string;
@@ -38,15 +34,7 @@ export class JobApplication extends EntityBase {
 
   constructor(props: JobApplicationConstructorProps) {
     super();
-    this.job_application_id =
-      props.job_application_id ?? new JobApplicationId();
-    this.name = props.name;
-    this.link = props.link;
-    this.status = props.status;
-    this.salary = props.salary;
-    this.isEquity = props.isEquity;
-    this.isInternational = props.isInternational;
-    this.user = props.user;
+    Object.assign(this, props);
   }
 
   static create(props: JobApplicationCreateCommand) {
@@ -91,12 +79,12 @@ export class JobApplication extends EntityBase {
   }
 
   get entity_id() {
-    return this.job_application_id;
+    return this.id;
   }
 
   toJSON() {
     return {
-      job_application_id: this.job_application_id.id,
+      id: this.id,
       name: this.name,
       link: this.link,
       status: this.status,
