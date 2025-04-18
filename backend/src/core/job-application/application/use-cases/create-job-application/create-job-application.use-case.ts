@@ -29,7 +29,6 @@ export class CreateJobApplicationUseCase
     const user = await this.userRepository.getOne({
       id: userId,
     });
-
     const entity = JobApplication.create({
       name,
       link,
@@ -40,11 +39,11 @@ export class CreateJobApplicationUseCase
       user,
     });
 
-    const jobApplicationCreated =
+    const jobApplicationCreated: JobApplication =
       await this.jobApplicationRepository.create(entity);
 
     return {
-      jobApplicationId: jobApplicationCreated.job_application_id.id,
+      jobApplicationId: jobApplicationCreated.id,
     };
   }
 }

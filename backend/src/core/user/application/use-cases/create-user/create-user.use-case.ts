@@ -27,7 +27,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
     const userCreated = await this.userRepository.addUserAccountCreated(entity);
 
     return {
-      userId: userCreated.user_id.id,
+      userId: userCreated.id,
     };
   }
 }

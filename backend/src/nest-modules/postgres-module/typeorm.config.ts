@@ -13,6 +13,7 @@ config({ path: '.env' });
 export const allModels: EntityClassOrSchema[] = [
   UserModel,
   JobApplicationModel,
+  CompanyModel,
 ];
 
 export default new DataSource({

@@ -5,10 +5,7 @@ import { BaseRepositoryPostgresAdapter } from 'src/libs/shared/src/infrastructur
 import { getDataSourceName } from 'src/nest-modules/postgres-module/typeorm.config';
 import { Repository } from 'typeorm';
 import { IJobApplicationRepository } from '../domain/contracts/repository/job-application.repository';
-import {
-  JobApplication,
-  JobApplicationId,
-} from '../domain/job-application.aggregate';
+import { JobApplication } from '../domain/job-application.aggregate';
 import { JobApplicationModel } from './job-application.model';
 
 @Injectable()
@@ -27,11 +24,12 @@ export class JobApplicationRepositoryAdapter
     normalizedPersistencyObject: JobApplicationModel,
   ): JobApplication {
     const user = new User({
+      id: normalizedPersistencyObject.user.id,
       name: normalizedPersistencyObject.user.name,
       email: normalizedPersistencyObject.user.email,
     });
     const jobApplication: JobApplication = new JobApplication({
-      job_application_id: new JobApplicationId(normalizedPersistencyObject.id),
+      id: normalizedPersistencyObject.id,
       name: normalizedPersistencyObject.name,
       link: normalizedPersistencyObject.link,
       status: normalizedPersistencyObject.status,
@@ -46,7 +44,7 @@ export class JobApplicationRepositoryAdapter
 
   mapToModel(normalizedPersistencyObject: JobApplication): JobApplicationModel {
     const jobApplication: JobApplicationModel = new JobApplicationModel();
-    jobApplication.id = normalizedPersistencyObject.job_application_id.id;
+    jobApplication.id = normalizedPersistencyObject.id;
     jobApplication.name = normalizedPersistencyObject.name;
     jobApplication.link = normalizedPersistencyObject.link;
     jobApplication.status = normalizedPersistencyObject.status;
@@ -59,11 +57,11 @@ export class JobApplicationRepositoryAdapter
   }
 
   async updateJobApplication(
-    jobApplicationId: any,
+    jobApplicationId: string,
     jobApplication: JobApplication,
   ): Promise<JobApplication> {
     const jobApplicationModel = await this._jobApplicationRepository.findOne({
-      where: { id: jobApplicationId.id },
+      where: { id: jobApplicationId },
     });
 
     if (!jobApplicationModel) {
