@@ -1,13 +1,10 @@
 import { EntityBase } from 'src/libs/shared/src/data-layer/entities/entity-base';
 import { Email } from 'src/libs/shared/src/domain/models/value-objects/email';
 import { Phone } from 'src/libs/shared/src/domain/models/value-objects/phone';
-import { Uuid } from 'src/libs/shared/src/domain/models/value-objects/uuid.vo';
 import { Contact } from './contact.vo';
 
-export class CompanyId extends Uuid {}
-
 export type CompanyConstructorProps = {
-  company_id?: CompanyId;
+  id?: string;
   email: string;
   name: string;
   phone: string;
@@ -32,7 +29,6 @@ export enum CompanyStatus { // @to do - move for interview entity
 }
 
 export class CompanyAggregate extends EntityBase {
-  company_id: CompanyId;
   email: Email;
   name: string;
   phone: Phone;
@@ -41,12 +37,7 @@ export class CompanyAggregate extends EntityBase {
 
   constructor(props: CompanyConstructorProps) {
     super();
-    this.company_id = props.company_id ?? new CompanyId();
-    this.email = new Email(props.email);
-    this.name = props.name;
-    this.phone = new Phone(props.phone);
-    this.contact = props.contact;
-    this.company_website = props.company_website;
+    Object.assign(this, props);
   }
 
   static create(props: CompanyCreateCommand) {

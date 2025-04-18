@@ -4,7 +4,7 @@ import { BaseRepositoryPostgresAdapter } from 'src/libs/shared/src/infrastructur
 import { getDataSourceName } from 'src/nest-modules/postgres-module/typeorm.config';
 import { Repository } from 'typeorm';
 import { IUserRepository } from '../domain/contracts/repository/user.repository';
-import { User, UserId } from '../domain/user.aggregate';
+import { User } from '../domain/user.aggregate';
 import { UserModel } from './user.model';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class UserRepositoryAdapter
 
   mapToDomain(normalizedPersistencyObject: UserModel): User {
     const user: User = new User({
-      user_id: new UserId(normalizedPersistencyObject.id),
+      id: normalizedPersistencyObject.id,
       name: normalizedPersistencyObject.name,
       email: normalizedPersistencyObject.email,
     });
