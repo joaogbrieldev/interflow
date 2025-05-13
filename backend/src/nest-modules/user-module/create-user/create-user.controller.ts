@@ -67,3 +67,20 @@ export class CreateUserController
     }
   }
 }
+// import { Controller, Get, NotFoundException, Param, Res } from '@nestjs/common';
+// import { Response } from 'express';
+// import fs from 'fs';
+// import os from 'os';
+// import path from 'path';
+
+// @Controller('downloads')
+// export class DownloadController {
+//   @Get(':filename')
+//   downloadFile(@Param('filename') filename: string, @Res() res: Response) {
+//     const filePath = path.join(os.tmpdir(), filename);
+//     if (!fs.existsSync(filePath)) {
+//       throw new NotFoundException('Arquivo não encontrado');
+//     }
+//     res.download(filePath, filename);
+//   }
+// }
