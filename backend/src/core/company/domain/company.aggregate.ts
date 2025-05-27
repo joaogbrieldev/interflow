@@ -20,14 +20,6 @@ export type CompanyCreateCommand = {
   company_website: string;
 };
 
-export enum CompanyStatus { // @to do - move for interview entity
-  SENT = 'sent',
-  interview = 'interview',
-  TECHNICAL_TEST = 'technical_test',
-  TECHNICAL_INTERVIEW = 'technical_interview',
-  PROPOSAL = 'proposal',
-}
-
 export class CompanyAggregate extends EntityBase {
   email: Email;
   name: string;

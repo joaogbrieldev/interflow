@@ -1,4 +1,5 @@
 import { CompanyModel } from '@core/company/infrastructure/company.model';
+import { InterviewModel } from '@core/interview/infrastructure/interview.model';
 import { JobApplicationModel } from '@core/job-application/infrastructure/job-application.model';
 import { UserModel } from '@core/user/infrastructure/user.model';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
@@ -14,6 +15,7 @@ export const allModels: EntityClassOrSchema[] = [
   UserModel,
   JobApplicationModel,
   CompanyModel,
+  InterviewModel,
 ];
 
 export default new DataSource({
@@ -24,7 +26,7 @@ export default new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  entities: [UserModel, JobApplicationModel, CompanyModel],
+  entities: [UserModel, JobApplicationModel, CompanyModel, InterviewModel],
   migrations: [path.join(__dirname, 'migrations/*.{js,ts}')],
   logging: ['query', 'schema', 'error', 'warn', 'info', 'log'],
 });
