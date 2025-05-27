@@ -20,11 +20,7 @@ export class GetJobApplicationUseCase implements IGetJobApplicationsUseCase {
   ): Promise<IGetJobApplicationsOutput> {
     const { userId } = input;
     const jobApplication: JobApplication[] =
-      await this._JobApplicationRepository.getMany(
-        { user: { id: userId } },
-        null,
-        ['user'],
-      );
+      await this._JobApplicationRepository.getMany({ user: { id: userId } });
     if (!jobApplication)
       throwsException(new NotFoundError('JobApplication not found'));
     return jobApplication;
