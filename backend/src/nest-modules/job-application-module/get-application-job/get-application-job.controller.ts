@@ -60,7 +60,6 @@ export class GetJobApplicationController
         });
       const output: GetJobApplicationsOutputDto =
         this._getJobApplicationMapper.mapOutputDto(JobApplication);
-
       return ok(output);
     } catch (error) {
       if (error instanceof ApplicationError) return badRequest(error);
