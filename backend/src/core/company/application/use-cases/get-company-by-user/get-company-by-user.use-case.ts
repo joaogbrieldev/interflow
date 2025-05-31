@@ -12,9 +12,11 @@ export class GetCompaniesByUserUseCase implements IGetCompanyByUserUseCase {
   async execute(
     input: IGetCompaniesByUserInput,
   ): Promise<IGetCompaniesByUserOutput> {
-    const companies = await this.companyRepository.getMany({
-      user: { id: input.userId },
-    });
+    const companies = await this.companyRepository.getMany(
+      { user: { id: input.userId } },
+      undefined,
+      ['user'],
+    );
     return companies;
   }
 }

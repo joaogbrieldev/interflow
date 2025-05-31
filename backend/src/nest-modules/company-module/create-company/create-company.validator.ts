@@ -17,7 +17,6 @@ export class CreateCompanyValidator
       'name',
       'phone',
       'contact',
-      'status',
       'company_website',
     ];
     validateRequiredFieldsAndThrows<CreateCompanyInputDto>(

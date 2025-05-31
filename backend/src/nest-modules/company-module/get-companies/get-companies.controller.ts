@@ -35,7 +35,7 @@ export type GetCompaniesOutput =
   | InternalServerError
   | AlreadyExistsError;
 
-@Controller('job-applications')
+@Controller('companies')
 export class GetCompaniesController
   implements IController<string, GetCompaniesOutputDto>
 {
@@ -60,7 +60,7 @@ export class GetCompaniesController
         });
       const output: GetCompaniesOutputDto =
         this._getCompaniesMapper.mapOutputDto(companies);
-
+      console.log(output);
       return ok(output);
     } catch (error) {
       if (error instanceof ApplicationError) return badRequest(error);
