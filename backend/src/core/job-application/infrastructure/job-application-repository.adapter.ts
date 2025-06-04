@@ -23,6 +23,7 @@ export class JobApplicationRepositoryAdapter
   mapToDomain(
     normalizedPersistencyObject: JobApplicationModel,
   ): JobApplication {
+    console.log(normalizedPersistencyObject);
     const user = new User({
       id: normalizedPersistencyObject.user.id,
       name: normalizedPersistencyObject.user.name,
@@ -36,9 +37,10 @@ export class JobApplicationRepositoryAdapter
       salary: normalizedPersistencyObject.salary,
       isEquity: normalizedPersistencyObject.is_equity,
       isInternational: normalizedPersistencyObject.is_international,
+      createdAt: normalizedPersistencyObject.createdAt,
       user: user,
     });
-
+    console.log(jobApplication);
     return jobApplication;
   }
 
@@ -52,7 +54,7 @@ export class JobApplicationRepositoryAdapter
     jobApplication.is_equity = normalizedPersistencyObject.isEquity;
     jobApplication.is_international =
       normalizedPersistencyObject.isInternational;
-
+    jobApplication.createdAt = normalizedPersistencyObject.createdAt;
     return jobApplication;
   }
 

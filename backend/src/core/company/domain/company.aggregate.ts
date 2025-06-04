@@ -1,3 +1,4 @@
+import { User } from '@core/user/domain/user.aggregate';
 import { EntityBase } from 'src/libs/shared/src/data-layer/entities/entity-base';
 import { Email } from 'src/libs/shared/src/domain/models/value-objects/email';
 import { Phone } from 'src/libs/shared/src/domain/models/value-objects/phone';
@@ -10,6 +11,7 @@ export type CompanyConstructorProps = {
   phone: string;
   contact: Contact[];
   company_website: string;
+  user: User;
 };
 
 export type CompanyCreateCommand = {
@@ -18,6 +20,7 @@ export type CompanyCreateCommand = {
   phone: string;
   contact: Contact[];
   company_website: string;
+  user: User;
 };
 
 export class CompanyAggregate extends EntityBase {
@@ -26,6 +29,7 @@ export class CompanyAggregate extends EntityBase {
   phone: Phone;
   contact: Contact[];
   company_website: string;
+  user: User;
 
   constructor(props: CompanyConstructorProps) {
     super();

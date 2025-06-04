@@ -1,3 +1,4 @@
+import { User } from '@core/user/domain/user.aggregate';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseRepositoryPostgresAdapter } from 'src/libs/shared/src/infrastructure/db/postgres/base-repository.adapter';
@@ -20,10 +21,10 @@ export class CompanyRepositoryAdapter
   }
 
   mapToDomain(normalizedPersistencyObject: CompanyModel): CompanyAggregate {
-    // const user = new User({
-    //   name: normalizedPersistencyObject.user.name,
-    //   email: normalizedPersistencyObject.user.email,
-    // });
+    const user = new User({
+      name: normalizedPersistencyObject.user.name,
+      email: normalizedPersistencyObject.user.email,
+    });
     const company: CompanyAggregate = new CompanyAggregate({
       id: normalizedPersistencyObject.id,
       name: normalizedPersistencyObject.name,
@@ -34,6 +35,7 @@ export class CompanyRepositoryAdapter
         position: item.position,
       })),
       company_website: normalizedPersistencyObject.website,
+      user,
     });
 
     return company;

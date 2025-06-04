@@ -1,11 +1,10 @@
-import { GetJobApplicationsDataModule } from '@core/job-application/application/use-cases/get-job-application/get-job-application.module';
+import { GetInterviewDataModule } from '@core/interview/application/use-cases/get-interview/get-interview.module';
 import { Module } from '@nestjs/common';
-import { GetJobApplicationController } from './get-interview.controller';
-import { GetJobApplicationDataMapper } from './get-interview.mapper';
+import { GetInterviewController } from './get-interview.controller';
 
 @Module({
-  imports: [GetJobApplicationsDataModule],
-  controllers: [GetJobApplicationController],
-  providers: [GetJobApplicationDataMapper],
+  imports: [GetInterviewDataModule],
+  controllers: [GetInterviewController],
+  providers: [],
 })
-export class GetJobAppicationModule {}
+export class GetInterviewModule {}

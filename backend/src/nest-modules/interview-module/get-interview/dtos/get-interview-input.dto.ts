@@ -1,3 +1,3 @@
-export class GetJobApplicationsInputDto {
+export class GetInterviewsInputDto {
   userId: string;
 }

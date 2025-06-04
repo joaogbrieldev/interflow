@@ -18,13 +18,16 @@ export class GetInterviewUseCase implements IGetInterviewsUseCase {
   ): Promise<IPaginatedResult<InterviewAggregate>> {
     const { userId, page } = input;
     const interview = await this._InterviewRepository.paginate(
-      page,
-      undefined,
+      Number(page),
+      25,
       {
         user: { id: userId },
       },
+      undefined,
+      ['user'],
     );
     if (!interview) throwsException(new NotFoundError('Interview not found'));
+    console.log(interview);
     return interview;
   }
 }

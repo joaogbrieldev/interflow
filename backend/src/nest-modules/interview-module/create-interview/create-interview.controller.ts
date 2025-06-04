@@ -33,7 +33,7 @@ export type CreateInterviewOutput =
   | AlreadyExistsError
   | UnauthorizedError;
 
-@Controller('job-application')
+@Controller('interviews')
 export class CreateInterviewController
   implements IController<CreateInterviewInputDto, CreateInterviewOutput>
 {

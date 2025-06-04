@@ -10,6 +10,7 @@ export type JobApplicationConstructorProps = {
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
+  createdAt?: Date;
   user: User;
 };
 

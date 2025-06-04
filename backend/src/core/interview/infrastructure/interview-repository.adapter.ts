@@ -9,7 +9,7 @@ import { InterviewModel } from './interview.model';
 import { InterviewModelMapper } from './interview.model-mapper';
 
 @Injectable()
-export class interviewRepositoryAdapter
+export class InterviewRepositoryAdapter
   extends BaseRepositoryPostgresAdapter<InterviewAggregate, InterviewModel>
   implements IInterviewRepository
 {

@@ -9,6 +9,7 @@ export enum InterviewStatus {
 }
 
 type InterviewConstructorProps = {
+  id?: string;
   initialScreen?: Date;
   status: InterviewStatus;
   technicalInterviewDate?: Date;
@@ -33,11 +34,7 @@ export class InterviewAggregate extends EntityBase {
 
   constructor(props: InterviewConstructorProps) {
     super();
-    this.initialScreen = props.initialScreen;
-    this.status = props.status;
-    this.technicalInterviewDate = props.technicalInterviewDate;
-    this.interviewFeedback = props.interviewFeedback;
-    this.user = props.user;
+    Object.assign(this, props);
   }
 
   static create(props: InterviewCreateProps) {

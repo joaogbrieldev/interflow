@@ -1,13 +1,10 @@
-import {
-  IGetJobApplicationsOutput,
-  IGetJobApplicationsUseCase,
-} from '@core/job-application/domain/contracts/use-cases/get-job-application';
+import { IGetInterviewsUseCase } from '@core/interview/domain/contracts/use-cases/get-interview';
 import {
   Controller,
   Get,
   HttpCode,
   HttpStatus,
-  Param,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -25,43 +22,40 @@ import {
   internalServerError,
   ok,
 } from 'src/libs/shared/src/presentation/helper/http';
-import { GetJobApplicationsOutputDto } from './dtos/get-interview-output.dto';
-import { GetJobApplicationDataMapper } from './get-interview.mapper';
+import { GetInterviewsOutputDto } from './dtos/get-interview-output.dto';
 
-export type GetJobApplicationOutput =
-  | GetJobApplicationsOutputDto
+type Page = number;
+
+export type GetInterviewOutput =
+  | GetInterviewsOutputDto
   | InvalidParamError
   | MissingParamError
   | InternalServerError
   | AlreadyExistsError;
 
-@Controller('job-applications')
-export class GetJobApplicationController
-  implements IController<string, GetJobApplicationsOutputDto>
+@Controller('interviews')
+export class GetInterviewController
+  implements IController<Page, GetInterviewsOutputDto>
 {
-  constructor(
-    private readonly _getJobApplicationUseCase: IGetJobApplicationsUseCase,
-    private readonly _getJobApplicationMapper: GetJobApplicationDataMapper,
-  ) {}
+  constructor(private readonly _getInterviewUseCase: IGetInterviewsUseCase) {}
 
-  @Get('/:userId')
+  @Get('/')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @HttpCode(HttpStatus.BAD_REQUEST)
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
-    @Param('userId') userId: string,
-  ): Promise<IHttpResponse<GetJobApplicationOutput>> {
+    @Query('page') page: number,
+    @Query('userId') userId: string,
+  ): Promise<IHttpResponse<GetInterviewOutput>> {
     try {
-      const JobApplication: IGetJobApplicationsOutput =
-        await this._getJobApplicationUseCase.execute({
+      const interview: GetInterviewOutput =
+        await this._getInterviewUseCase.execute({
           userId,
+          page,
         });
-      const output: GetJobApplicationsOutputDto =
-        this._getJobApplicationMapper.mapOutputDto(JobApplication);
-
-      return ok(output);
+      return ok(interview);
     } catch (error) {
       if (error instanceof ApplicationError) return badRequest(error);
       return internalServerError();
