@@ -40,7 +40,6 @@ export class JobApplicationRepositoryAdapter
       createdAt: normalizedPersistencyObject.createdAt,
       user: user,
     });
-    console.log(jobApplication);
     return jobApplication;
   }
 
@@ -70,6 +69,7 @@ export class JobApplicationRepositoryAdapter
       throw new Error('Job application not found');
     }
 
+    jobApplicationModel.id = jobApplication.id;
     jobApplicationModel.name = jobApplication.name;
     jobApplicationModel.link = jobApplication.link;
     jobApplicationModel.status = jobApplication.status;

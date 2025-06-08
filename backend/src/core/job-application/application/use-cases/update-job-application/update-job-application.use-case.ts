@@ -27,7 +27,7 @@ export class UpdateJobApplicationUseCase
 
     jobApplication.defineName(name).defineLink(link).updateStatus(status);
 
-    await this._jobApplicationRepository.update(
+    await this._jobApplicationRepository.updateJobApplication(
       jobApplicationsId,
       jobApplication,
     );
@@ -42,6 +42,7 @@ export class UpdateJobApplicationUseCase
       await this._jobApplicationRepository.exists({
         id: jobApplicationId,
       });
-    if (!hasJobApplication) throwsException(new InvalidParamError('userId'));
+    if (!hasJobApplication)
+      throwsException(new InvalidParamError('jobApplicationId'));
   }
 }
