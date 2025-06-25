@@ -5,15 +5,19 @@ export interface IUpdateInterviewInput {
   interviewId: string;
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
+  interviewLink: string;
 }
 
 export type IUpdateInterviewOutput = {
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
+  interviewLink: string;
 };
 
 export abstract class IUpdateInterviewUseCase
