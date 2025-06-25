@@ -62,13 +62,15 @@ export class JobApplicationFakerBuilder<
       .map(
         () =>
           new JobApplication({
-            name: this._callFactory(this._name),
             link: this._callFactory(this._link),
             status: this._callFactory(this._status),
             salary: this._callFactory(this._salary),
             isEquity: this._callFactory(this._isEquity),
             isInternational: this._callFactory(this._isInternational),
             user: null,
+            position: null,
+            company: null,
+            name: this._callFactory(this._name),
           }),
       );
 
