@@ -1,13 +1,11 @@
-import {
-  IGetJobApplicationsOutput,
-  IGetJobApplicationsUseCase,
-} from '@core/job-application/domain/contracts/use-cases/get-job-application';
+import { IGetJobApplicationsUseCase } from '@core/job-application/domain/contracts/use-cases/get-job-application';
 import {
   Controller,
   Get,
   HttpCode,
   HttpStatus,
   Param,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -26,7 +24,6 @@ import {
   ok,
 } from 'src/libs/shared/src/presentation/helper/http';
 import { GetJobApplicationsOutputDto } from './dtos/get-application-job-output.dto';
-import { GetJobApplicationDataMapper } from './get-application-job.mapper';
 
 export type GetJobApplicationOutput =
   | GetJobApplicationsOutputDto
@@ -37,11 +34,10 @@ export type GetJobApplicationOutput =
 
 @Controller('job-applications')
 export class GetJobApplicationController
-  implements IController<string, GetJobApplicationsOutputDto>
+  implements IController<number, GetJobApplicationsOutputDto>
 {
   constructor(
     private readonly _getJobApplicationUseCase: IGetJobApplicationsUseCase,
-    private readonly _getJobApplicationMapper: GetJobApplicationDataMapper,
   ) {}
 
   @Get('/:userId')
@@ -51,17 +47,17 @@ export class GetJobApplicationController
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
+    @Query('page') page: number,
     @Param('userId') userId: string,
   ): Promise<IHttpResponse<GetJobApplicationOutput>> {
     try {
-      const JobApplication: IGetJobApplicationsOutput =
+      const jobApplications: GetJobApplicationOutput =
         await this._getJobApplicationUseCase.execute({
           userId,
+          page,
         });
-      const output: GetJobApplicationsOutputDto =
-        this._getJobApplicationMapper.mapOutputDto(JobApplication);
 
-      return ok(output);
+      return ok(jobApplications);
     } catch (error) {
       if (error instanceof ApplicationError) return badRequest(error);
       return internalServerError();

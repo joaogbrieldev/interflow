@@ -1,15 +1,17 @@
 import { IUseCase } from 'src/libs/shared/src/domain/contracts/application/use-case';
+import { IPaginatedResult } from 'src/libs/shared/src/domain/contracts/infrastructure/repository-base';
 import { CompanyAggregate } from '../../company.aggregate';
 
 export type IGetCompaniesByUserInput = {
   userId: string;
+  page: number;
 };
-export type IGetCompaniesByUserOutput = CompanyAggregate[];
 
 export abstract class IGetCompanyByUserUseCase
-  implements IUseCase<IGetCompaniesByUserInput, IGetCompaniesByUserOutput>
+  implements
+    IUseCase<IGetCompaniesByUserInput, IPaginatedResult<CompanyAggregate>>
 {
   abstract execute(
     input: IGetCompaniesByUserInput,
-  ): Promise<IGetCompaniesByUserOutput>;
+  ): Promise<IPaginatedResult<CompanyAggregate>>;
 }

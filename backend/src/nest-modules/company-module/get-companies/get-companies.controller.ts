@@ -1,13 +1,10 @@
-import {
-  IGetCompaniesByUserOutput,
-  IGetCompanyByUserUseCase,
-} from '@core/company/domain/contracts/use-cases/get-company-by-user';
+import { IGetCompanyByUserUseCase } from '@core/company/domain/contracts/use-cases/get-company-by-user';
 import {
   Controller,
   Get,
   HttpCode,
   HttpStatus,
-  Param,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -26,7 +23,6 @@ import {
   ok,
 } from 'src/libs/shared/src/presentation/helper/http';
 import { GetCompaniesOutputDto } from './dtos/get-companies-output.dto';
-import { GetCompaniesDataMapper } from './get-companies.mapper';
 
 export type GetCompaniesOutput =
   | GetCompaniesOutputDto
@@ -35,13 +31,12 @@ export type GetCompaniesOutput =
   | InternalServerError
   | AlreadyExistsError;
 
-@Controller('job-applications')
+@Controller('companies')
 export class GetCompaniesController
-  implements IController<string, GetCompaniesOutputDto>
+  implements IController<number, GetCompaniesOutputDto>
 {
   constructor(
     private readonly _getCompaniesUseCase: IGetCompanyByUserUseCase,
-    private readonly _getCompaniesMapper: GetCompaniesDataMapper,
   ) {}
 
   @Get('/:userId')
@@ -51,17 +46,18 @@ export class GetCompaniesController
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
-    @Param('userId') userId: string,
+    @Query('page') page: number,
+    @Query('userId') userId: string,
   ): Promise<IHttpResponse<GetCompaniesOutput>> {
     try {
-      const companies: IGetCompaniesByUserOutput =
+      const companies: GetCompaniesOutput =
         await this._getCompaniesUseCase.execute({
           userId,
+          page,
         });
-      const output: GetCompaniesOutputDto =
-        this._getCompaniesMapper.mapOutputDto(companies);
 
-      return ok(output);
+      console.log(companies);
+      return ok(companies);
     } catch (error) {
       if (error instanceof ApplicationError) return badRequest(error);
       return internalServerError();

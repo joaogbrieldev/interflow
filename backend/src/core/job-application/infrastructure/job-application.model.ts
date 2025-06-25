@@ -1,3 +1,5 @@
+import { CompanyModel } from '@core/company/infrastructure/company.model';
+import { InterviewModel } from '@core/interview/infrastructure/interview.model';
 import { UserModel } from '@core/user/infrastructure/user.model';
 import { BaseModel } from 'src/libs/shared/src/infrastructure/db/postgres/models/base.model';
 import {
@@ -5,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   TableInheritance,
 } from 'typeorm';
 
@@ -14,14 +17,18 @@ import {
 })
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class JobApplicationModel extends BaseModel {
-  @Column({ type: 'varchar', nullable: false })
-  name: string;
+  @Column({ type: 'varchar', nullable: true })
+  position: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   link: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  name: string;
 
   @Column({
     type: 'varchar',
+    default: 'APPLIED',
   })
   status: string;
 
@@ -34,7 +41,17 @@ export class JobApplicationModel extends BaseModel {
   @Column({ type: 'boolean', default: false })
   is_international: boolean;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  applied_at: Date;
+
   @ManyToOne(() => UserModel)
   @JoinColumn({ name: 'user_id' })
   user: UserModel;
+
+  @ManyToOne(() => CompanyModel, (company) => company.jobApplications)
+  @JoinColumn({ name: 'company_id' })
+  company: CompanyModel;
+
+  @OneToMany(() => InterviewModel, (interview) => interview.jobApplication)
+  interviews: InterviewModel[];
 }

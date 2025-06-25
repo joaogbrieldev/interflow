@@ -18,16 +18,16 @@ export class UpdateJobApplicationUseCase
   ) {}
 
   async execute(input: IUpdateJobApplicationsInput): Promise<JobApplication> {
-    const { jobApplicationsId, name, link, status } = input;
+    const { jobApplicationsId, link, status } = input;
     await this._validateJobApplicationId(jobApplicationsId);
     const jobApplication: JobApplication =
       await this._jobApplicationRepository.get(jobApplicationsId, null, [
         'user',
       ]);
 
-    jobApplication.defineName(name).defineLink(link).updateStatus(status);
+    jobApplication.defineLink(link).updateStatus(status);
 
-    await this._jobApplicationRepository.update(
+    await this._jobApplicationRepository.updateJobApplication(
       jobApplicationsId,
       jobApplication,
     );
@@ -42,6 +42,7 @@ export class UpdateJobApplicationUseCase
       await this._jobApplicationRepository.exists({
         id: jobApplicationId,
       });
-    if (!hasJobApplication) throwsException(new InvalidParamError('userId'));
+    if (!hasJobApplication)
+      throwsException(new InvalidParamError('jobApplicationId'));
   }
 }

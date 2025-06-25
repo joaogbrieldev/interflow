@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CompanyAggregate } from '../domain/company.aggregate';
 import { ICompanyRepository } from '../domain/contracts/repository/company.repository';
 import { CompanyModel } from './company.model';
+import { CompanyModelMapper } from './company.model-mapper';
 
 @Injectable()
 export class CompanyRepositoryAdapter
@@ -20,33 +21,6 @@ export class CompanyRepositoryAdapter
   }
 
   mapToDomain(normalizedPersistencyObject: CompanyModel): CompanyAggregate {
-    // const user = new User({
-    //   name: normalizedPersistencyObject.user.name,
-    //   email: normalizedPersistencyObject.user.email,
-    // });
-    const company: CompanyAggregate = new CompanyAggregate({
-      id: normalizedPersistencyObject.id,
-      name: normalizedPersistencyObject.name,
-      email: normalizedPersistencyObject.email,
-      phone: normalizedPersistencyObject.phone,
-      contact: normalizedPersistencyObject.contact.map((item) => ({
-        name: item.name,
-        position: item.position,
-      })),
-      company_website: normalizedPersistencyObject.website,
-    });
-
-    return company;
-  }
-
-  mapToModel(normalizedPersistencyObject: CompanyAggregate): CompanyModel {
-    const company: CompanyModel = new CompanyModel();
-    company.id = normalizedPersistencyObject.id;
-    company.name = normalizedPersistencyObject.name;
-    company.email = normalizedPersistencyObject.email.getValue();
-    company.phone = normalizedPersistencyObject.phone.getValue();
-    company.website = normalizedPersistencyObject.company_website;
-
-    return company;
+    return CompanyModelMapper.mapToDomain(normalizedPersistencyObject);
   }
 }

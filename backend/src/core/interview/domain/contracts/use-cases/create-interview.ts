@@ -2,11 +2,14 @@ import { IUseCase } from 'src/libs/shared/src/domain/contracts/application/use-c
 import { InterviewStatus } from '../../interview.aggregate';
 
 export type ICreateInterviewInput = {
-  userId: string;
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
+  userId: string;
+  interviewLink: string;
+  type: string;
 };
 
 export type ICreateInterviewOutput = {

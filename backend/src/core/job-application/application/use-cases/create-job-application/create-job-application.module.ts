@@ -1,3 +1,4 @@
+import { CompanyRepositoryModule } from '@core/company/infrastructure/company.module';
 import { ICreateJobApplicationUseCase } from '@core/job-application/domain/contracts/use-cases/create-job-application';
 import { JobApplicationRepositoryModule } from '@core/job-application/infrastructure/job-application.module';
 import { UserRepositoryModule } from '@core/user/infrastructure/user.module';
@@ -10,7 +11,11 @@ export const createJobApplicationProvider: Provider = {
 };
 
 @Module({
-  imports: [JobApplicationRepositoryModule, UserRepositoryModule],
+  imports: [
+    JobApplicationRepositoryModule,
+    UserRepositoryModule,
+    CompanyRepositoryModule,
+  ],
   exports: [createJobApplicationProvider],
   providers: [createJobApplicationProvider],
 })

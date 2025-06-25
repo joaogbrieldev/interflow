@@ -12,14 +12,7 @@ export class CreateCompanyValidator
   }
 
   private _validateRequiredFields(input: CreateCompanyInputDto): void {
-    const requiredFields: string[] = [
-      'email',
-      'name',
-      'phone',
-      'contact',
-      'status',
-      'company_website',
-    ];
+    const requiredFields: string[] = ['name', 'company_website'];
     validateRequiredFieldsAndThrows<CreateCompanyInputDto>(
       requiredFields,
       input,

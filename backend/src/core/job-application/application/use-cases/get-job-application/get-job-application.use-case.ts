@@ -1,13 +1,11 @@
 import { IJobApplicationRepository } from '@core/job-application/domain/contracts/repository/job-application.repository';
 import {
   IGetJobApplicationsInput,
-  IGetJobApplicationsOutput,
   IGetJobApplicationsUseCase,
 } from '@core/job-application/domain/contracts/use-cases/get-job-application';
 import { JobApplication } from '@core/job-application/domain/job-application.aggregate';
 import { Injectable } from '@nestjs/common';
-import { throwsException } from 'src/libs/shared/src/data-layer/helper/exception';
-import { NotFoundError } from 'src/libs/shared/src/domain/errors/application/not-found.error';
+import { IPaginatedResult } from 'src/libs/shared/src/domain/contracts/infrastructure/repository-base';
 
 @Injectable()
 export class GetJobApplicationUseCase implements IGetJobApplicationsUseCase {
@@ -17,12 +15,16 @@ export class GetJobApplicationUseCase implements IGetJobApplicationsUseCase {
 
   async execute(
     input: IGetJobApplicationsInput,
-  ): Promise<IGetJobApplicationsOutput> {
+  ): Promise<IPaginatedResult<JobApplication>> {
     const { userId } = input;
-    const jobApplication: JobApplication[] =
-      await this._JobApplicationRepository.getMany({ user: { id: userId } });
-    if (!jobApplication)
-      throwsException(new NotFoundError('JobApplication not found'));
-    return jobApplication;
+    const jobApplications = await this._JobApplicationRepository.paginate(
+      input.page,
+      25,
+      { user: { id: userId } },
+      undefined,
+      ['user'],
+    );
+    console.log(jobApplications);
+    return jobApplications;
   }
 }

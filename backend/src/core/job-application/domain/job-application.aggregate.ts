@@ -1,21 +1,27 @@
+import { CompanyAggregate } from '@core/company/domain/company.aggregate';
 import { User } from '@core/user/domain/user.aggregate';
 import { EntityBase } from 'src/libs/shared/src/data-layer/entities/entity-base';
 import { JobApplicationFakerBuilder } from './job-application-fake.builder';
 
 export type JobApplicationConstructorProps = {
   id?: string;
+  position: string;
   name: string;
   link: string;
   status: string;
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
+  createdAt?: Date;
   user: User;
+  company: CompanyAggregate;
 };
 
 export type JobApplicationCreateCommand = {
-  name: string;
   link: string;
+  position: string;
+  name: string;
+  company: CompanyAggregate;
   status: string;
   salary: number;
   isEquity: boolean;
@@ -24,9 +30,11 @@ export type JobApplicationCreateCommand = {
 };
 
 export class JobApplication extends EntityBase {
-  name: string;
   link: string;
   status: string;
+  position: string;
+  name: string;
+  company: CompanyAggregate;
   salary: number;
   isEquity: boolean;
   isInternational: boolean;
@@ -44,13 +52,13 @@ export class JobApplication extends EntityBase {
     return jobApplication;
   }
 
-  defineName(name: string): JobApplication {
-    this.name = name;
+  defineLink(link: string): JobApplication {
+    this.link = link;
     return this;
   }
 
-  defineLink(link: string): JobApplication {
-    this.link = link;
+  defineName(name: string): JobApplication {
+    this.name = name;
     return this;
   }
 
@@ -85,11 +93,11 @@ export class JobApplication extends EntityBase {
   toJSON() {
     return {
       id: this.id,
-      name: this.name,
       link: this.link,
       status: this.status,
       salary: this.salary,
       isEquity: this.isEquity,
+      position: this.position,
     };
   }
 }

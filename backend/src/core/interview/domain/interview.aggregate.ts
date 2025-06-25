@@ -6,47 +6,58 @@ export enum InterviewStatus {
   TECHNICAL_TEST = 'technical_test',
   TECHNICAL_INTERVIEW = 'technical_interview',
   PROPOSAL = 'proposal',
+  SCHEDULED = 'scheduled',
 }
 
 type InterviewConstructorProps = {
+  id?: string;
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
   user: User;
+  interviewLink: string;
+  type: string;
 };
 
 type InterviewCreateProps = {
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
   user: User;
+  interviewLink: string;
+  type: string;
 };
 
 export class InterviewAggregate extends EntityBase {
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  type: string;
+  interviewerName: string;
+  interviewLink: string;
+
   user: User;
 
   constructor(props: InterviewConstructorProps) {
     super();
-    this.initialScreen = props.initialScreen;
-    this.status = props.status;
-    this.technicalInterviewDate = props.technicalInterviewDate;
-    this.interviewFeedback = props.interviewFeedback;
-    this.user = props.user;
+    Object.assign(this, props);
   }
 
   static create(props: InterviewCreateProps) {
     return new InterviewAggregate({
       initialScreen: props.initialScreen,
       status: props.status,
-      technicalInterviewDate: props.technicalInterviewDate,
-      interviewFeedback: props.interviewFeedback,
+      scheduledDate: props.scheduledDate,
+      feedback: props.feedback,
+      interviewerName: props.interviewerName,
+      interviewLink: props.interviewLink,
       user: props.user,
+      type: props.type,
     });
   }
 
@@ -60,12 +71,20 @@ export class InterviewAggregate extends EntityBase {
     return this;
   }
 
-  defineTechnicalInterviewDate(technicalInterviewDate: Date) {
-    this.technicalInterviewDate = technicalInterviewDate;
+  definescheduledDate(scheduledDate: Date) {
+    this.scheduledDate = scheduledDate;
     return this;
   }
-  defineInterviewFeedback(interviewFeedback: string) {
-    this.interviewFeedback = interviewFeedback;
+  definefeedback(feedback: string) {
+    this.feedback = feedback;
+    return this;
+  }
+  defineInterviewName(interviewerName: string) {
+    this.interviewerName = interviewerName;
+    return this;
+  }
+  defineInterviewLink(link: string) {
+    this.interviewLink = link;
     return this;
   }
   get entity_id() {
@@ -77,8 +96,8 @@ export class InterviewAggregate extends EntityBase {
       id: this.id,
       initialScreen: this.initialScreen,
       status: this.status,
-      technicalInterviewDate: this.technicalInterviewDate,
-      interviewFeedback: this.interviewFeedback,
+      scheduledDate: this.scheduledDate,
+      feedback: this.feedback,
     };
   }
 }

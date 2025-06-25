@@ -1,9 +1,9 @@
-import { JobApplication } from '@core/job-application/domain/job-application.aggregate';
+import { CompanyAggregate } from '@core/company/domain/company.aggregate';
 import { IPaginatedResult } from 'src/libs/shared/src/domain/contracts/infrastructure/repository-base';
 import { PaginatedResultDto } from 'src/libs/shared/src/presentation/dtos/paginated-result.dto';
 
-export class GetJobApplicationsOutputDto extends PaginatedResultDto<JobApplication> {
-  constructor(output: IPaginatedResult<JobApplication>) {
+export class GetCompaniesOutputDto extends PaginatedResultDto<CompanyAggregate> {
+  constructor(output: IPaginatedResult<CompanyAggregate>) {
     super();
     this.docs = output.docs;
     this.totalDocs = output.totalDocs;

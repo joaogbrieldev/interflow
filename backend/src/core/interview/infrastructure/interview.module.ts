@@ -5,11 +5,11 @@ import {
   getDataSourceName,
 } from 'src/nest-modules/postgres-module/typeorm.config';
 import { IInterviewRepository } from '../domain/contracts/repository/interview.repository';
-import { interviewRepositoryAdapter } from './interview-repository.adapter';
+import { InterviewRepositoryAdapter } from './interview-repository.adapter';
 
 const InterviewRepositoryProvider: Provider = {
   provide: IInterviewRepository,
-  useClass: interviewRepositoryAdapter,
+  useClass: InterviewRepositoryAdapter,
 };
 @Module({
   imports: [TypeOrmModule.forFeature([...allModels], getDataSourceName())],
