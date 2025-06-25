@@ -17,7 +17,7 @@ export class CreateInterviewValidator
       'initialScreen',
       'status',
       'technicalInterviewDate',
-      'interviewFeedback',
+      'feedback',
     ];
     validateRequiredFieldsAndThrows<CreateInterviewInputDto>(
       requiredFields,

@@ -18,8 +18,10 @@ export class UpdateInterviewUseCase implements IUpdateInterviewUseCase {
       interviewId,
       initialScreen,
       status,
-      technicalInterviewDate,
-      interviewFeedback,
+      scheduledDate,
+      feedback,
+      interviewerName,
+      interviewLink,
     } = input;
     await this._validateInterviewId(interviewId);
     const interview: InterviewAggregate = await this._interviewRepository.get(
@@ -31,8 +33,10 @@ export class UpdateInterviewUseCase implements IUpdateInterviewUseCase {
     interview
       .defineInitialScreen(initialScreen)
       .defineStatus(status)
-      .defineTechnicalInterviewDate(technicalInterviewDate)
-      .defineInterviewFeedback(interviewFeedback);
+      .definescheduledDate(scheduledDate)
+      .definefeedback(feedback)
+      .defineInterviewName(interviewerName)
+      .defineInterviewLink(interviewLink);
 
     await this._interviewRepository.update(interviewId, interview);
 

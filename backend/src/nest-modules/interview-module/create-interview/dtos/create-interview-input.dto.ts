@@ -5,25 +5,33 @@ export type CreateInterviewInputConstructorProps = {
   userId: string;
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
+  interviewLink: string;
+  type: string;
 };
 
 export class CreateInterviewInputDto {
   userId: string;
   initialScreen?: Date;
   status: InterviewStatus;
-  technicalInterviewDate?: Date;
-  interviewFeedback: string;
+  scheduledDate?: Date;
+  feedback: string;
+  interviewerName: string;
+  interviewLink: string;
+  type: string;
 
   constructor(props: CreateInterviewInputConstructorProps) {
     if (!props) return;
     this.userId = props.userId;
     this.initialScreen = props.initialScreen;
     this.status = props.status;
-    this.status = props.status;
-    this.technicalInterviewDate = props.technicalInterviewDate;
-    this.interviewFeedback = props.interviewFeedback;
+    this.scheduledDate = props.scheduledDate;
+    this.feedback = props.feedback;
+    this.interviewerName = props.interviewerName;
+    this.interviewLink = props.interviewLink;
+    this.type = props.type;
   }
 }
 

@@ -7,11 +7,14 @@ export abstract class InterviewModelMapper {
     const user = UserModelMapper.toEntity(model.user);
     const interviewEntity: InterviewAggregate = new InterviewAggregate({
       id: model.id,
-      initialScreen: model.initialScreen,
+      initialScreen: model.initial_screen,
       status: model.status,
-      technicalInterviewDate: model.technicalInterviewDate,
-      interviewFeedback: model.interviewFeedback,
+      scheduledDate: model.scheduled_date,
+      feedback: model.feedback,
       user: user,
+      type: model.type,
+      interviewerName: model.interviewer_name,
+      interviewLink: model.interview_link,
     });
 
     return interviewEntity;
@@ -19,10 +22,9 @@ export abstract class InterviewModelMapper {
   static toModel(entity: InterviewAggregate): InterviewModel {
     const interviewModel: InterviewModel = new InterviewModel();
     interviewModel.id = entity.id;
-    interviewModel.initialScreen = entity.initialScreen;
     interviewModel.status = entity.status;
-    interviewModel.technicalInterviewDate = entity.technicalInterviewDate;
-    interviewModel.interviewFeedback = entity.interviewFeedback;
+    interviewModel.scheduled_date = entity.scheduledDate;
+    interviewModel.feedback = entity.feedback;
     return interviewModel;
   }
 }

@@ -3,7 +3,6 @@ import { JobApplication } from '../../job-application.aggregate';
 
 export interface IUpdateJobApplicationsInput {
   jobApplicationsId: string;
-  name?: string;
   link?: string;
   status?: string;
   salary?: number;

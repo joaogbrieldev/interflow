@@ -18,9 +18,12 @@ export class CreateInterviewUseCase implements ICreateInterviewUseCase {
   async execute({
     initialScreen,
     status,
-    technicalInterviewDate,
-    interviewFeedback,
+    scheduledDate,
+    feedback,
+    interviewerName,
+    interviewLink,
     userId,
+    type,
   }: ICreateInterviewInput): Promise<ICreateInterviewOutput> {
     const user = await this.userRepository.getOne({
       id: userId,
@@ -28,9 +31,12 @@ export class CreateInterviewUseCase implements ICreateInterviewUseCase {
     const entity = InterviewAggregate.create({
       initialScreen,
       status,
-      technicalInterviewDate,
-      interviewFeedback,
+      scheduledDate,
+      feedback,
+      interviewerName,
+      interviewLink,
       user,
+      type,
     });
 
     const interviewCreated: InterviewAggregate =

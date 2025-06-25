@@ -8,6 +8,8 @@ export type ICreateJobApplicationInput = {
   isEquity: boolean;
   isInternational: boolean;
   userId: string;
+  position: string;
+  companyId: string;
 };
 
 export type ICreateJobApplicationOutput = {

@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -47,7 +48,7 @@ export class GetJobApplicationController
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
     @Query('page') page: number,
-    @Query('userId') userId: string,
+    @Param('userId') userId: string,
   ): Promise<IHttpResponse<GetJobApplicationOutput>> {
     try {
       const jobApplications: GetJobApplicationOutput =
