@@ -98,6 +98,9 @@ export class JobApplication extends EntityBase {
       salary: this.salary,
       isEquity: this.isEquity,
       position: this.position,
+      name: this.name,
+      isInternational: this.isInternational,
+      createdAt: this.createdAt,
     };
   }
 }
