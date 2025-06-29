@@ -21,7 +21,7 @@ export abstract class CompanyModelMapper {
       phone: normalizedPersistencyObject.phone,
       contact: normalizedPersistencyObject.contact.map((item) => ({
         name: item.name,
-        position: item.position,
+        role: item.role,
       })),
       company_website: normalizedPersistencyObject.website,
       user: user ?? null,

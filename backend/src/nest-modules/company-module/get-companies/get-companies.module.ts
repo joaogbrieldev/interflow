@@ -7,4 +7,4 @@ import { GetCompaniesController } from './get-companies.controller';
   controllers: [GetCompaniesController],
   providers: [],
 })
-export class GetJobAppicationModule {}
+export class GetCompaniesModule {}
