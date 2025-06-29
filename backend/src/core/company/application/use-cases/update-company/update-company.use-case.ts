@@ -22,14 +22,17 @@ export class UpdateCompanyUseCase implements IUpdateCompanyUseCase {
       ['user'],
     );
 
-    company
-      .defineName(name)
-      .defineEmail(email)
-      .definePhone(phone)
-      .defineWebsite(company_website)
-      .defineContact(contact.name, contact.position);
+    if (name !== undefined) company.defineName(name);
+    if (phone !== undefined) company.definePhone(phone);
+    if (company_website !== undefined) company.defineWebsite(company_website);
+    if (contact?.name && contact?.role) {
+      company.defineContact(contact.name, contact.role);
+    }
+    if (email !== undefined) {
+      company.defineEmail(email);
+    }
 
-    await this._companyRepository.update(companyId, company);
+    await this._companyRepository.updateCompany(companyId, company);
 
     return company;
   }
@@ -38,6 +41,6 @@ export class UpdateCompanyUseCase implements IUpdateCompanyUseCase {
     const hasCompany: boolean = await this._companyRepository.exists({
       id: companyId,
     });
-    if (!hasCompany) throwsException(new InvalidParamError('userId'));
+    if (!hasCompany) throwsException(new InvalidParamError('companyId'));
   }
 }

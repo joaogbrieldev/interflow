@@ -56,12 +56,10 @@ export class CompanyAggregate extends EntityBase {
     return this;
   }
 
-  defineContact(name: string, position: string): CompanyAggregate {
-    this.contact.forEach((contact) => {
-      if (contact.name === name) {
-        contact.name = name;
-        contact.position = position;
-      }
+  defineContact(name: string, role: string): CompanyAggregate {
+    this.contact.push({
+      name: name,
+      role: role,
     });
     return this;
   }

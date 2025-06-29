@@ -1,4 +1,4 @@
 export class Contact {
   name: string;
-  position: string;
+  role: string;
 }
