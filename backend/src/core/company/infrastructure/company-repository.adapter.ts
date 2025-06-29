@@ -23,4 +23,32 @@ export class CompanyRepositoryAdapter
   mapToDomain(normalizedPersistencyObject: CompanyModel): CompanyAggregate {
     return CompanyModelMapper.mapToDomain(normalizedPersistencyObject);
   }
+  mapToModel(normalizedPersistencyObject: CompanyAggregate): CompanyModel {
+    return CompanyModelMapper.mapToModel(normalizedPersistencyObject);
+  }
+
+  async updateCompany(
+    companyId: string,
+    company: CompanyAggregate,
+  ): Promise<CompanyAggregate> {
+    const companyModel = await this._companyRepository.findOne({
+      where: { id: companyId },
+    });
+
+    if (!companyModel) {
+      throw new Error('company not found');
+    }
+
+    companyModel.id = company.id;
+    companyModel.name = company.name;
+    companyModel.email = company.email ? company.email.getValue() : null;
+    companyModel.phone = company.phone ? company.phone.getValue() : null;
+    companyModel.contact = company.contact;
+    companyModel.website = company.company_website;
+
+    const updatedcompanyModel =
+      await this._companyRepository.save(companyModel);
+
+    return this.mapToDomain(updatedcompanyModel);
+  }
 }
