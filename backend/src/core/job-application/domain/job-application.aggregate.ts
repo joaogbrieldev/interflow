@@ -101,6 +101,7 @@ export class JobApplication extends EntityBase {
       name: this.name,
       isInternational: this.isInternational,
       createdAt: this.createdAt,
+      company: this.company,
     };
   }
 }

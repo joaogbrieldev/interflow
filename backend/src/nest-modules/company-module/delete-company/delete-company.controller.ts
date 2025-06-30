@@ -4,7 +4,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  Query,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -31,9 +31,9 @@ export type DeleteCompanyOutput =
   | InternalServerError
   | AlreadyExistsError;
 
-@Controller('companies')
+@Controller('company')
 export class DeleteCompanyController
-  implements IController<number, DeleteCompanyOutputDto>
+  implements IController<string, DeleteCompanyOutputDto>
 {
   constructor(private readonly _deleteCompanyUseCase: IDeleteCompanyUseCase) {}
 
@@ -44,8 +44,7 @@ export class DeleteCompanyController
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
-    @Query('page') page: number,
-    @Query('companyId') companyId: string,
+    @Param('companyId') companyId: string,
   ): Promise<IHttpResponse<DeleteCompanyOutput>> {
     try {
       const companies: DeleteCompanyOutput =

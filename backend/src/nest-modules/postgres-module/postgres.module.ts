@@ -21,7 +21,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DATABASE,
         synchronize: false,
-        logging: true,
+        //logging: true,
         autoLoadEntities: false,
         entities: [
           UserModel,

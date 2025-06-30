@@ -24,7 +24,6 @@ export class GetJobApplicationUseCase implements IGetJobApplicationsUseCase {
       undefined,
       ['user'],
     );
-    console.log(jobApplications);
     return jobApplications;
   }
 }

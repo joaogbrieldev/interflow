@@ -27,7 +27,6 @@ export class GetInterviewUseCase implements IGetInterviewsUseCase {
       ['user'],
     );
     if (!interview) throwsException(new NotFoundError('Interview not found'));
-    console.log(interview);
     return interview;
   }
 }

@@ -31,7 +31,7 @@ export class JobApplicationRepositoryAdapter
       email: normalizedPersistencyObject.user.email,
     });
     let company: CompanyAggregate;
-    if (company) {
+    if (normalizedPersistencyObject.company) {
       company = CompanyModelMapper.mapToDomain(
         normalizedPersistencyObject.company,
       );
