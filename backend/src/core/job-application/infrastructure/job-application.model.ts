@@ -48,10 +48,17 @@ export class JobApplicationModel extends BaseModel {
   @JoinColumn({ name: 'user_id' })
   user: UserModel;
 
-  @ManyToOne(() => CompanyModel, (company) => company.jobApplications)
+  @ManyToOne(() => CompanyModel, (company) => company.jobApplications, {
+    onDelete: 'SET NULL',
+    nullable: true,
+    eager: true,
+  })
   @JoinColumn({ name: 'company_id' })
   company: CompanyModel;
 
   @OneToMany(() => InterviewModel, (interview) => interview.jobApplication)
   interviews: InterviewModel[];
+
+  @Column({ default: false })
+  companyDeleted: boolean;
 }

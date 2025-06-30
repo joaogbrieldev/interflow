@@ -28,5 +28,5 @@ export default new DataSource({
   database: process.env.POSTGRES_DATABASE,
   entities: [UserModel, JobApplicationModel, CompanyModel, InterviewModel],
   migrations: [path.join(__dirname, 'migrations/*.{js,ts}')],
-  logging: ['query', 'schema', 'error', 'warn', 'info', 'log'],
+  //logging: ['query', 'schema', 'error', 'warn', 'info', 'log'],
 });
