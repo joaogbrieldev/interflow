@@ -55,8 +55,6 @@ export class GetCompaniesController
           userId,
           page,
         });
-
-      console.log(companies);
       return ok(companies);
     } catch (error) {
       if (error instanceof ApplicationError) return badRequest(error);

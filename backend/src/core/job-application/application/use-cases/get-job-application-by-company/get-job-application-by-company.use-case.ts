@@ -26,7 +26,6 @@ export class GetJobApplicationsByCompanyUseCase
       undefined,
       ['user'],
     );
-    console.log(jobApplications);
     return jobApplications;
   }
 }
