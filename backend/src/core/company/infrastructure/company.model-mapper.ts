@@ -25,6 +25,7 @@ export abstract class CompanyModelMapper {
       })),
       company_website: normalizedPersistencyObject.website,
       user: user ?? null,
+      country: normalizedPersistencyObject.country,
     });
 
     return company;
@@ -38,7 +39,7 @@ export abstract class CompanyModelMapper {
     company.email = normalizedPersistencyObject.email.getValue();
     company.phone = normalizedPersistencyObject.phone.getValue();
     company.website = normalizedPersistencyObject.company_website;
-
+    company.country = normalizedPersistencyObject.country;
     return company;
   }
 }
