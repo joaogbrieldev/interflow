@@ -12,6 +12,7 @@ export type CompanyConstructorProps = {
   contact: Contact[];
   company_website: string;
   user: User;
+  country: string;
 };
 
 export type CompanyCreateCommand = {
@@ -21,6 +22,7 @@ export type CompanyCreateCommand = {
   contact: Contact[];
   company_website: string;
   user: User;
+  country: string;
 };
 
 export class CompanyAggregate extends EntityBase {
@@ -30,6 +32,7 @@ export class CompanyAggregate extends EntityBase {
   contact: Contact[];
   company_website: string;
   user: User;
+  country: string;
 
   constructor(props: CompanyConstructorProps) {
     super();
@@ -66,6 +69,11 @@ export class CompanyAggregate extends EntityBase {
 
   defineWebsite(website: string): CompanyAggregate {
     this.company_website = website;
+    return this;
+  }
+
+  defineCountry(country: string): CompanyAggregate {
+    this.country = country;
     return this;
   }
 }

@@ -21,6 +21,9 @@ export class CompanyModel extends BaseModel {
   name: string;
 
   @Column({ type: 'varchar', nullable: true })
+  country: string;
+
+  @Column({ type: 'varchar', nullable: true })
   email: string;
 
   @Column({ type: 'json', nullable: true })

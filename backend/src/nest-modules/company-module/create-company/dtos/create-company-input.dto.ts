@@ -8,6 +8,7 @@ export type CreateCompanyInputConstructorProps = {
   contact: Contact[];
   company_website: string;
   userId: string;
+  country: string;
 };
 
 export class CreateCompanyInputDto {
@@ -17,6 +18,7 @@ export class CreateCompanyInputDto {
   contact: Contact[];
   company_website: string;
   userId: string;
+  country: string;
 
   constructor(props: CreateCompanyInputConstructorProps) {
     if (!props) return;
@@ -26,6 +28,7 @@ export class CreateCompanyInputDto {
     this.contact = props.contact;
     this.company_website = props.company_website;
     this.userId = props.userId;
+    this.country = props.country;
   }
 }
 

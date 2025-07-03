@@ -8,6 +8,7 @@ export type ICreateCompanyInput = {
   contact: Contact[];
   company_website: string;
   userId: string;
+  country: string;
 };
 
 export type ICreateCompanyOutput = {
