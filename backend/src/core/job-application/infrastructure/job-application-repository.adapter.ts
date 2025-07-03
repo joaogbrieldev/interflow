@@ -25,12 +25,15 @@ export class JobApplicationRepositoryAdapter
   mapToDomain(
     normalizedPersistencyObject: JobApplicationModel,
   ): JobApplication {
-    const user = new User({
-      id: normalizedPersistencyObject.user.id,
-      name: normalizedPersistencyObject.user.name,
-      email: normalizedPersistencyObject.user.email,
-    });
-    let company: CompanyAggregate;
+    let user: User | null = null;
+    if (normalizedPersistencyObject.user) {
+      user = new User({
+        id: normalizedPersistencyObject.user.id,
+        name: normalizedPersistencyObject.user.name,
+        email: normalizedPersistencyObject.user.email,
+      });
+    }
+    let company: CompanyAggregate | null = null;
     if (normalizedPersistencyObject.company) {
       company = CompanyModelMapper.mapToDomain(
         normalizedPersistencyObject.company,

@@ -4,7 +4,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  Query,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -46,7 +46,7 @@ export class DeleteJobApplicationController
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
-    @Query('jobApplicationId') jobApplicationId: string,
+    @Param('jobApplicationId') jobApplicationId: string,
   ): Promise<IHttpResponse<DeleteJobApplicationOutput>> {
     try {
       const companies: DeleteJobApplicationOutput =
