@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { IUserRepository } from '../domain/contracts/repository/user.repository';
 import { User } from '../domain/user.aggregate';
 import { UserModel } from './user.model';
+import { UserModelMapper } from './user.model-mapper';
 
 @Injectable()
 export class UserRepositoryAdapter
@@ -20,12 +21,7 @@ export class UserRepositoryAdapter
   }
 
   mapToDomain(normalizedPersistencyObject: UserModel): User {
-    const user: User = new User({
-      id: normalizedPersistencyObject.id,
-      name: normalizedPersistencyObject.name,
-      email: normalizedPersistencyObject.email,
-    });
-    return user;
+    return UserModelMapper.toEntity(normalizedPersistencyObject);
   }
   async addUserAccountCreated(user: User): Promise<User> {
     const userEntity = this._userRepository.create(user);
