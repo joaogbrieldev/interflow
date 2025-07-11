@@ -7,6 +7,7 @@ export abstract class UserModelMapper {
       id: model.id,
       name: model.name,
       email: model.email,
+      externalReference: model.externalReference,
     });
 
     return userEntity;
@@ -16,6 +17,7 @@ export abstract class UserModelMapper {
     userModel.id = entity.id;
     userModel.name = entity.name;
     userModel.email = entity.email;
+    userModel.externalReference = entity.externalReference;
     return userModel;
   }
 }
