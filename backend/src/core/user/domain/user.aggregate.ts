@@ -5,6 +5,7 @@ export type UserConstructorProps = {
   id?: string;
   name: string;
   email: string;
+  externalReference?: string;
 };
 
 export type UserCreateCommand = {
@@ -16,6 +17,7 @@ export class User extends EntityBase {
   name: string;
   email: string;
   password: string;
+  externalReference?: string;
 
   constructor(props: UserConstructorProps) {
     super();
@@ -47,6 +49,7 @@ export class User extends EntityBase {
       id: this.id,
       name: this.name,
       email: this.email,
+      externalReference: this.externalReference,
     };
   }
 }

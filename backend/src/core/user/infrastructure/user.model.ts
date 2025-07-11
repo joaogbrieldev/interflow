@@ -15,4 +15,7 @@ export class UserModel extends BaseModel {
 
   @Column({ type: 'varchar', nullable: false })
   password: string;
+
+  @Column({ type: 'varchar', name: 'fcm_token', nullable: true })
+  externalReference: string;
 }
