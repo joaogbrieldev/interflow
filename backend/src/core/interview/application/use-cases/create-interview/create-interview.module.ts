@@ -2,6 +2,7 @@ import { ICreateInterviewUseCase } from '@core/interview/domain/contracts/use-ca
 import { InterviewRepositoryModule } from '@core/interview/infrastructure/interview.module';
 import { UserRepositoryModule } from '@core/user/infrastructure/user.module';
 import { Module, Provider } from '@nestjs/common';
+import { FirebaseNotificationModule } from '@shared/infrastructure/firebase/firebase-notification.module';
 import { CreateInterviewUseCase } from './create-interview.use-case';
 
 export const createInterviewProvider: Provider = {
@@ -10,7 +11,11 @@ export const createInterviewProvider: Provider = {
 };
 
 @Module({
-  imports: [InterviewRepositoryModule, UserRepositoryModule],
+  imports: [
+    InterviewRepositoryModule,
+    UserRepositoryModule,
+    FirebaseNotificationModule,
+  ],
   exports: [createInterviewProvider],
   providers: [createInterviewProvider],
 })

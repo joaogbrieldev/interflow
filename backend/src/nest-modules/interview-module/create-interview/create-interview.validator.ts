@@ -12,13 +12,7 @@ export class CreateInterviewValidator
   }
 
   private _validateRequiredFields(input: CreateInterviewInputDto): void {
-    const requiredFields: string[] = [
-      'userId',
-      'initialScreen',
-      'status',
-      'technicalInterviewDate',
-      'feedback',
-    ];
+    const requiredFields: string[] = ['userId', 'initialScreen', 'status'];
     validateRequiredFieldsAndThrows<CreateInterviewInputDto>(
       requiredFields,
       input,
