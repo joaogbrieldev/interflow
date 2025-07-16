@@ -4,7 +4,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  Query,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/libs/shared/src/data-layer/jwt-service/jwt-adapter.service';
@@ -33,7 +33,7 @@ export type DeleteInterviewOutput =
 
 @Controller('interviews')
 export class DeleteInterviewController
-  implements IController<number, DeleteInterviewOutputDto>
+  implements IController<string, DeleteInterviewOutputDto>
 {
   constructor(
     private readonly _deleteInterviewUseCase: IDeleteInterviewUseCase,
@@ -46,8 +46,7 @@ export class DeleteInterviewController
   @HttpCode(HttpStatus.CONFLICT)
   @HttpCode(HttpStatus.INTERNAL_SERVER_ERROR)
   async handle(
-    @Query('page') page: number,
-    @Query('interviewId') interviewId: string,
+    @Param('interviewId') interviewId: string,
   ): Promise<IHttpResponse<DeleteInterviewOutput>> {
     try {
       const companies: DeleteInterviewOutput =

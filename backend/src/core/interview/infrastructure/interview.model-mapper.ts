@@ -1,17 +1,21 @@
+import { User } from '@core/user/domain/user.aggregate';
 import { UserModelMapper } from '@core/user/infrastructure/user.model-mapper';
 import { InterviewAggregate } from '../domain/interview.aggregate';
 import { InterviewModel } from './interview.model';
 
 export abstract class InterviewModelMapper {
   static toEntity(model: InterviewModel): InterviewAggregate {
-    const user = UserModelMapper.toEntity(model.user);
+    let user: User;
+    if (model.user) {
+      user = UserModelMapper.toEntity(model.user);
+    }
     const interviewEntity: InterviewAggregate = new InterviewAggregate({
       id: model.id,
       initialScreen: model.initial_screen,
       status: model.status,
       scheduledDate: model.scheduled_date,
       feedback: model.feedback,
-      user: user,
+      user: user || null,
       type: model.type,
       interviewerName: model.interviewer_name,
       interviewLink: model.interview_link,
